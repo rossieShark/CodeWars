@@ -324,6 +324,68 @@ func vowelsAndConsonants2(str: String) -> (Int, Int) {
     return (vowelsCount, consonantsCount)
 }
 vowelsAndConsonants2(str: "jju")
+
+/*
+ Написать функцию, которая принимает 2 строки и возвращает true, если они одинаковы по длине, но разичаются по содержанию не более, чем на 3 буквы.
+ */
+func sameStr(firstStr: String, secondStr: String) -> Bool {
+    guard firstStr.count == secondStr.count else { return false }
+    let array1 = Array(firstStr)
+    let array2 = Array(secondStr)
+    var differences = 0
+    for (index, letter) in firstStr.enumerated() {
+        if array2[index] != letter {
+            differences += 1
+            if differences == 4 {
+                return false
+            }
+        }
+    }
+    return true
+}
+
+sameStr(firstStr: "Hello", secondStr: "lebbo")
+/*
+ Поиск самого длинного префикса.
+ Написать функцию, которая принимает строку, состоящую из слов с похожими префиксами, разделенных пробелами и возвращает самый длинный префикс, который должен встречаться в каждом слове
+ */
+func prefix(str: String) -> String {
+    let parts = str.lowercased().components(separatedBy: " ")
+    guard let partOne = parts.first else { return "" }
+    
+    var currentPrefix = ""
+    var prefix = ""
+    
+    for i in partOne {
+        currentPrefix.append(i)
+        for word in parts {
+            if !word.hasPrefix(currentPrefix) {
+                return prefix
+            }
+        }
+        prefix = currentPrefix
+    }
+    return prefix
+}
+
+prefix(str: "swift Switch Swim Swist")
+
+func hasPrefix(str: String) -> String {
+    let parts = str.lowercased().components(separatedBy: " ")
+    // guard let partOne = parts.first else { return "" }
+    var value = parts.max() ?? ""
+    print(value)
+    parts.forEach {
+        while !$0.hasPrefix(value) {
+            value.removeLast()
+        }
+    }
+    return value
+    }
+prefix(str: "swift Switch Swim Swist")
+
+let forEach = [2, 3, 4, 5, 4, 7, 2]
+forEach.forEach { print($0) }
  /*
 13. Карточки с именами
 
